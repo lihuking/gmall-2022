@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/gmall-2022.iml" filepath="$PROJECT_DIR$/.idea/gmall-2022.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gmall-bean/gmall-bean.iml" filepath="$PROJECT_DIR$/gmall-bean/gmall-bean.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gmall-ban/gmall-ban.iml" filepath="$PROJECT_DIR$/gmall-ban/gmall-ban.iml" />
       <module fileurl="file://$PROJECT_DIR$/gmall-common-util/gmall-common-util.iml" filepath="$PROJECT_DIR$/gmall-common-util/gmall-common-util.iml" />
       <module fileurl="file://$PROJECT_DIR$/gmall-interface/gmall-interface.iml" filepath="$PROJECT_DIR$/gmall-interface/gmall-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/gmall-parent/gmall-parent.iml" filepath="$PROJECT_DIR$/gmall-parent/gmall-parent.iml" />

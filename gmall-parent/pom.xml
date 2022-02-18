@@ -7,7 +7,7 @@
     <artifactId>gmall-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>../gmall-bean</module>
+        <module>../gmall-ban</module>
         <module>../gmall-interface</module>
         <module>../gmall-common-util</module>
         <module>../gmall-service-util</module>
@@ -145,11 +145,12 @@
                 <artifactId>commons-beanutils</artifactId>
                 <version>${beanUtils.version}</version>
             </dependency>
+
             <dependency>
-                <groupId>org.projectlombok</groupId>
+               <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
+               <version>${lombok.version}</version>
+           </dependency>
 
             <dependency>
                 <groupId>commons-codec</groupId>
