@@ -8,4 +8,5 @@ import java.util.List;
 public interface UserInfoService {
 
     List<UserInfo> getuUserInfoAll();
+
 }

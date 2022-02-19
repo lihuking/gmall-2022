@@ -4,9 +4,11 @@
       <root url="jar://$MAVEN_REPOSITORY$/com/lihuking/gmall/gmall-common-util/1.0-SNAPSHOT/gmall-common-util-1.0-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/gmall-common-util/gmall-common-util-1.0-SNAPSHOT-javadoc.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/lihuking/gmall/gmall-common-util/1.0-SNAPSHOT/gmall-common-util-1.0-SNAPSHOT-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
+      <root url="jar://$PROJECT_DIR$/gmall-common-util/gmall-common-util-1.0-SNAPSHOT-sources.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/lihuking/gmall/gmall-common-util/1.0-SNAPSHOT/gmall-common-util-1.0-SNAPSHOT-sources.jar!/" />
     </SOURCES>
   </library>
