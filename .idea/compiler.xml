@@ -8,17 +8,19 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gmall-common-util" />
+        <module name="fastdfs-client-java" />
         <module name="gmall-manage-web" />
         <module name="gmall-ban" />
-        <module name="gmall-user-manager" />
+        <module name="gmall-web-util" />
         <module name="gmall-manage-service" />
         <module name="gmall-interface" />
-        <module name="gmall-web-util" />
+        <module name="gmall-user-manager" />
         <module name="gmall-service-util" />
         <module name="gmall-order-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
+      <module name="fastdfs-client-java" target="11" />
       <module name="gmall-ban" target="11" />
       <module name="gmall-common-util" target="11" />
       <module name="gmall-interface" target="11" />
@@ -33,6 +35,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="fastdfs-client-java" options="" />
       <module name="gmall-ban" options="-parameters" />
       <module name="gmall-common-util" options="-parameters" />
       <module name="gmall-interface" options="-parameters" />

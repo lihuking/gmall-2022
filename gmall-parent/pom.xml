@@ -25,7 +25,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
         <fastjson.version>1.2.75</fastjson.version>
-<!--        <dubbo-starter.version>1.0.10</dubbo-starter.version>-->
+<!--        <dubbo-starter.version>1.1.1</dubbo-starter.version>-->
         <dubbo.version>2.6.2</dubbo.version>
 <!--        <zkclient.version>0.10</zkclient.version>-->
         <zookeeper.version>2.12.0</zookeeper.version>
@@ -43,7 +43,6 @@
         <beanUtils.version>1.9.4</beanUtils.version>
         <lombok.version>1.18.22</lombok.version>
         <codec.version>1.15</codec.version>
-        <dubbo-start.version>2.7.7</dubbo-start.version>
     </properties>
 
     <dependencyManagement>
@@ -78,17 +77,11 @@
             <version>${zookeeper.version}</version>
         </dependency>
 
-            <!--            <dependency>-->
+<!--            <dependency>-->
 <!--                <groupId>com.gitee.reger</groupId>-->
 <!--                <artifactId>spring-boot-starter-dubbo</artifactId>-->
 <!--                <version>${dubbo-starter.version}</version>-->
 <!--            </dependency>-->
-            <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter -->
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-spring-boot-starter</artifactId>
-                <version>${dubbo-start.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>

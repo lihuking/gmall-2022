@@ -1,9 +1,6 @@
 package com.lihuking.gmall.service;
 
-import com.lihuking.gmall.bean.BaseAttrInfo;
-import com.lihuking.gmall.bean.BaseCatalog1;
-import com.lihuking.gmall.bean.BaseCatalog2;
-import com.lihuking.gmall.bean.BaseCatalog3;
+import com.lihuking.gmall.bean.*;
 
 import java.util.List;
 
@@ -17,5 +14,9 @@ public interface ManageService {
 
      List<BaseAttrInfo> getAttrList(String catalog3Id);
 
+     void saveAttrInfo(BaseAttrInfo baseAttrInfo);
 
+     List<BaseAttrValue> getAttrValueList(String attrId);
+
+     List<SpuInfo> getSpuInfoList(SpuInfo spuInfo);
 }

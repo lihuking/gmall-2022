@@ -1,12 +1,12 @@
 package com.lihuking.gmall.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.lihuking.gmall.bean.BaseAttrInfo;
-import com.lihuking.gmall.bean.BaseCatalog1;
-import com.lihuking.gmall.bean.BaseCatalog2;
-import com.lihuking.gmall.bean.BaseCatalog3;
+import com.lihuking.gmall.bean.*;
 import com.lihuking.gmall.service.ManageService;
 import com.lihuking.gmall.service.mapper.*;
+import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.util.StringUtil;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,6 +30,9 @@ public class ManageServiceImpl implements ManageService {
     BaseCatalog3Mapper baseCatalog3Mapper;
 
     @Resource
+    SpuInfoMapper spuInfoMapper;
+
+    @Override
     public List<BaseCatalog1> getCatalog1() {
         List<BaseCatalog1> baseCatalog1List = baseCatalog1Mapper.selectAll();
         return baseCatalog1List;
@@ -53,6 +56,7 @@ public class ManageServiceImpl implements ManageService {
         return baseCatalog3List;
     }
 
+
     @Override
     public List<BaseAttrInfo> getAttrList(String catalog3_id) {
         BaseAttrInfo baseAttrInfo = new BaseAttrInfo();
@@ -61,5 +65,54 @@ public class ManageServiceImpl implements ManageService {
         List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.select(baseAttrInfo);
         return baseAttrInfoList;
 
+    }
+
+    /**
+     * 添加或者修改属性及属性值。
+     * @param baseAttrInfo  基础属性。
+     */
+    @Transactional
+    @Override
+    public void saveAttrInfo(BaseAttrInfo baseAttrInfo) {
+        if (!StringUtil.isEmpty(baseAttrInfo.getId())){
+               baseAttrInfoMapper.updateByPrimaryKeySelective(baseAttrInfo);
+        }
+        else {
+           baseAttrInfoMapper.insertSelective(baseAttrInfo);
+
+        }
+           //获取属性值。
+        List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
+        if (attrValueList!=null&&attrValueList.size()>0) {
+            for (BaseAttrValue baseAttrValue : attrValueList) {
+                baseAttrValue.setId(null);
+                baseAttrValue.setAttrId(baseAttrInfo.getId());
+              baseAttrValueMapper.insertSelective(baseAttrValue);
+            }
+        }
+    }
+
+    /**
+     * 获取具体某个商品属性的属性值。
+     * @param attrId 商品属性。
+     * @return
+     */
+    @Override
+    public List<BaseAttrValue> getAttrValueList(String attrId) {
+        Example example=new Example(BaseAttrValue.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("attrId", attrId);
+        List<BaseAttrValue> attrValueList = baseAttrValueMapper.selectByExample(example);
+        return attrValueList;
+    }
+
+    /**
+     * 获取指定分类下的所有商品信息。
+     * @param spuInfo
+     * @return
+     */
+    @Override
+    public List<SpuInfo> getSpuInfoList(SpuInfo spuInfo) {
+        return spuInfoMapper.select(spuInfo);
     }
 }
