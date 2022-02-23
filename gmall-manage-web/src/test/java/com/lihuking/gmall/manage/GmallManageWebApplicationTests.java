@@ -8,6 +8,7 @@ import org.csource.fastdfs.TrackerServer;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
 import java.io.IOException;
 
 @SpringBootTest
@@ -20,6 +21,7 @@ class GmallManageWebApplicationTests {
     @Test
     public void textFileUpload() throws IOException, MyException {
         String file = this.getClass().getResource("/tracker.conf").getFile();
+         System.err.println("我是。。"+file);
         ClientGlobal.init(file);
         TrackerClient trackerClient=new TrackerClient();
         //获取连接
@@ -34,6 +36,11 @@ class GmallManageWebApplicationTests {
         }
     }
 
+    @Test
+    public void testUp(){
+        File file=new File("D:\\maven\\电商\\资料\\day 04\\小米手机\\黑全.jpg");
+
+    }
 
 
 }

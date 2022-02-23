@@ -32,6 +32,18 @@ public class ManageServiceImpl implements ManageService {
     @Resource
     SpuInfoMapper spuInfoMapper;
 
+    @Resource
+    BaseSaleAttrMapper baseSaleAttrMapper;
+    
+    @Resource
+    SpuSaleAttrMapper spuSaleAttrMapper;
+
+   @Resource
+   SpuSaleAttrValueMapper  spuSaleAttrValueMapper;
+
+   @Resource
+   SpuImageMapper spuImageMapper;
+
     @Override
     public List<BaseCatalog1> getCatalog1() {
         List<BaseCatalog1> baseCatalog1List = baseCatalog1Mapper.selectAll();
@@ -87,7 +99,7 @@ public class ManageServiceImpl implements ManageService {
             for (BaseAttrValue baseAttrValue : attrValueList) {
                 baseAttrValue.setId(null);
                 baseAttrValue.setAttrId(baseAttrInfo.getId());
-              baseAttrValueMapper.insertSelective(baseAttrValue);
+                baseAttrValueMapper.insertSelective(baseAttrValue);
             }
         }
     }
@@ -114,5 +126,43 @@ public class ManageServiceImpl implements ManageService {
     @Override
     public List<SpuInfo> getSpuInfoList(SpuInfo spuInfo) {
         return spuInfoMapper.select(spuInfo);
+    }
+
+    /**
+     * 获取销售属性列表。
+     * @return
+     */
+    @Override
+    public List<BaseSaleAttr> getBaseSaleAttrList() {
+        return baseSaleAttrMapper.selectAll();
+    }
+
+    /**
+     * 保存商品信息。
+     * @param spuInfo
+     */
+    @Override
+    public void saveSpuInfo(SpuInfo spuInfo) {
+        //存放商品基本信息
+         spuInfoMapper.insertSelective(spuInfo);
+         //存放商品销售属性及商品销售属性值
+        List<SpuSaleAttr> spuSaleAttrList = spuInfo.getSpuSaleAttrList();
+        for (SpuSaleAttr spuSaleAttr : spuSaleAttrList) {
+            spuSaleAttr.setSpuId(spuInfo.getId());
+            //存放商品销售属性
+            spuSaleAttrMapper.insertSelective(spuSaleAttr);
+            List<SpuSaleAttrValue> spuSaleAttrValueList = spuSaleAttr.getSpuSaleAttrValueList();
+            for (SpuSaleAttrValue spuSaleAttrValue : spuSaleAttrValueList) {
+                spuSaleAttrValue.setSpuId(spuInfo.getId());
+            //存放商品销售属性值。
+            spuSaleAttrValueMapper.insertSelective(spuSaleAttrValue);
+            }
+        }
+        //存放商品图片
+        List<SpuImage> spuImageList = spuInfo.getSpuImageList();
+        for (SpuImage spuImage : spuImageList) {
+            spuImage.setSpuId(spuInfo.getId());
+            spuImageMapper.insertSelective(spuImage);
+        }
     }
 }

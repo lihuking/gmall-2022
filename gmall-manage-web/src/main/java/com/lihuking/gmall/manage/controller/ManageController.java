@@ -3,9 +3,13 @@ package com.lihuking.gmall.manage.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.lihuking.gmall.bean.*;
 import com.lihuking.gmall.service.ManageService;
+import org.csource.common.MyException;
+import org.csource.fastdfs.FastDfsUploadTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -95,5 +99,42 @@ public class ManageController {
         spuInfo.setCatalog3Id(catalog3Id);
         List<SpuInfo> spuInfoList = manageService.getSpuInfoList(spuInfo);
         return  spuInfoList;
+    }
+
+    /**
+     * 实现文件上传。
+     * @param file
+     * @return
+     * @throws IOException
+     * @throws MyException
+     */
+    @ResponseBody
+    @RequestMapping(value = "fileUpload",method = RequestMethod.POST)
+    public String fileUpload(@RequestParam("file") MultipartFile file) throws IOException, MyException {
+
+        String fileUploadPath = FastDfsUploadTemplate.getFileUploadPath(file, "/tracker.conf", "192.168.102.130:8080");
+        return fileUploadPath;
+    }
+
+    /**
+     * 获取基本销售属性列表
+     * @return
+     */
+    //http://localhost:8082/baseSaleAttrList
+    @RequestMapping("baseSaleAttrList")
+    @ResponseBody
+    public List<BaseSaleAttr> getBaseSaleAttrList() {
+        System.err.println("我是。。。");
+        return manageService.getBaseSaleAttrList();
+    }
+
+    ////http://localhost:8082/saveSpuInfo
+    @RequestMapping("saveSpuInfo")
+    @ResponseBody
+    public String saveSpuInfo(@RequestBody SpuInfo spuInfo){
+
+        manageService.saveSpuInfo(spuInfo);
+
+        return "ok";
     }
 }

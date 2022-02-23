@@ -7,12 +7,16 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Data
-public class BaseAttrValue implements Serializable {
-    @Id
+public class SpuImage  implements Serializable {
+
     @Column
+    @Id
     private String id;
     @Column
-    private String valueName;
+    private String spuId;
     @Column
-    private String attrId;
+    private String imgName;
+    @Column
+    private String imgUrl;
+
 }
