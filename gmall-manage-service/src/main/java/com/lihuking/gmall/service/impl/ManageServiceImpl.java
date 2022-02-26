@@ -44,39 +44,64 @@ public class ManageServiceImpl implements ManageService {
    @Resource
    SpuImageMapper spuImageMapper;
 
+   @Resource
+   SkuInfoMapper skuInfoMapper;
+
+   @Resource
+   SkuImageMapper skuImageMapper;
+
+   @Resource
+   SkuAttrValueMapper skuAttrValueMapper;
+
+   @Resource
+   SkuSaleAttrValueMapper skuSaleAttrValueMapper;
+
+    /**
+     * 获取所有的一级分类
+     * @return
+     */
     @Override
     public List<BaseCatalog1> getCatalog1() {
         List<BaseCatalog1> baseCatalog1List = baseCatalog1Mapper.selectAll();
         return baseCatalog1List;
     }
 
+    /**
+     * 获取所有的二级分类
+     * @param catalog1Id
+     * @return
+     */
     @Override
     public List<BaseCatalog2> getCatalog2(String catalog1Id) {
         BaseCatalog2 baseCatalog2=new BaseCatalog2();
         baseCatalog2.setCatalog1Id(catalog1Id);
-
         List<BaseCatalog2> baseCatalog2List = baseCatalog2Mapper.select(baseCatalog2);
         return baseCatalog2List;
     }
 
+    /**
+     * 获取所有的三级分类
+     * @param catalog2Id
+     * @return
+     */
     @Override
     public List<BaseCatalog3> getCatalog3(String catalog2Id) {
         BaseCatalog3 baseCatalog3=new BaseCatalog3();
         baseCatalog3.setCatalog2Id(catalog2Id);
-
         List<BaseCatalog3> baseCatalog3List = baseCatalog3Mapper.select(baseCatalog3);
         return baseCatalog3List;
     }
 
-
+    /**
+     * 获取三级分类下的所有属性列表
+     * @param catalog3_id
+     * @return
+     */
     @Override
     public List<BaseAttrInfo> getAttrList(String catalog3_id) {
-        BaseAttrInfo baseAttrInfo = new BaseAttrInfo();
-        baseAttrInfo.setCatalog3Id(catalog3_id);
 
-        List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.select(baseAttrInfo);
+        List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.getAttrList(catalog3_id);
         return baseAttrInfoList;
-
     }
 
     /**
@@ -141,6 +166,7 @@ public class ManageServiceImpl implements ManageService {
      * 保存商品信息。
      * @param spuInfo
      */
+    @Transactional
     @Override
     public void saveSpuInfo(SpuInfo spuInfo) {
         //存放商品基本信息
@@ -163,6 +189,64 @@ public class ManageServiceImpl implements ManageService {
         for (SpuImage spuImage : spuImageList) {
             spuImage.setSpuId(spuInfo.getId());
             spuImageMapper.insertSelective(spuImage);
+        }
+    }
+
+    /**
+     * 获取某类商品的所有图片
+     * @param spuId
+     * @return
+     */
+    @Override
+    public List<SpuImage> getSpuImageList(String spuId) {
+        SpuImage spuImage=new SpuImage();
+        spuImage.setSpuId(spuId);
+        List<SpuImage> spuImageList = spuImageMapper.select(spuImage);
+        return spuImageList;
+    }
+
+    /**
+     * 根据商品id,查询出商品的所有销售属性及销售属性值。
+     * @param spuId
+     * @return
+     */
+     @Override
+     public List<SpuSaleAttr> getSpuSaleAttrList(String spuId) {
+        List<SpuSaleAttr> spuSaleAttrList=  spuSaleAttrMapper.getSpuSaleAttrList(spuId);
+        return spuSaleAttrList;
+     }
+
+    /**
+     * 添加或者修改商品库存信息。
+     * @param skuInfo
+     */
+    @Override
+    public void saveSkuInfo(SkuInfo skuInfo) {
+        //1、添加商品库存信息。
+        skuInfoMapper.insertSelective(skuInfo);
+        //2、添加商品库存图片
+        List<SkuImage> skuImageList = skuInfo.getSkuImageList();
+        if (skuImageList!=null&&skuImageList.size()>0) {
+            for (SkuImage skuImage : skuImageList) {
+                skuImage.setSkuId(skuInfo.getId());
+                skuImageMapper.insertSelective(skuImage);
+            }
+        }
+        //3、添加商品库存平台属性值。
+        List<SkuAttrValue> skuAttrValueList = skuInfo.getSkuAttrValueList();
+        if (skuAttrValueList!=null&&skuAttrValueList.size()>0) {
+            for (SkuAttrValue skuAttrValue : skuAttrValueList) {
+                skuAttrValue.setSkuId(skuInfo.getId());
+                skuAttrValueMapper.insertSelective(skuAttrValue);
+            }
+        }
+        //4、添加商品库存销售属性值。
+        List<SkuSaleAttrValue> skuSaleAttrValueList = skuInfo.getSkuSaleAttrValueList();
+        if (skuSaleAttrValueList!=null&&skuSaleAttrValueList.size()>0) {
+            for (SkuSaleAttrValue skuSaleAttrValue : skuSaleAttrValueList) {
+                skuSaleAttrValue.setSkuId(skuInfo.getId());
+                skuSaleAttrValueMapper.insertSelective(skuSaleAttrValue);
+            }
         }
     }
 }

@@ -20,17 +20,17 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
-      <module name="fastdfs-client-java" target="11" />
-      <module name="gmall-ban" target="11" />
-      <module name="gmall-common-util" target="11" />
-      <module name="gmall-interface" target="11" />
-      <module name="gmall-manage-service" target="11" />
-      <module name="gmall-manage-web" target="11" />
-      <module name="gmall-order-web" target="11" />
-      <module name="gmall-parent" target="11" />
+      <module name="fastdfs-client-java" target="1.6" />
+      <module name="gmall-ban" target="14" />
+      <module name="gmall-common-util" target="14" />
+      <module name="gmall-interface" target="14" />
+      <module name="gmall-manage-service" target="14" />
+      <module name="gmall-manage-web" target="14" />
+      <module name="gmall-order-web" target="14" />
+      <module name="gmall-parent" target="14" />
       <module name="gmall-service-util" target="11" />
-      <module name="gmall-user-manager" target="11" />
-      <module name="gmall-web-util" target="11" />
+      <module name="gmall-user-manager" target="14" />
+      <module name="gmall-web-util" target="14" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

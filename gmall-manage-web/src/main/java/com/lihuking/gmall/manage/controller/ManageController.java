@@ -79,6 +79,11 @@ public class ManageController {
         manageService.saveAttrInfo(baseAttrInfo);
     }
 
+    /**
+     * 根据属性id获取属性值。
+     * @param attrId
+     * @return
+     */
     //http://localhost:8082/getAttrValueList?attrId=99
     @RequestMapping("getAttrValueList")
     @ResponseBody
@@ -112,7 +117,7 @@ public class ManageController {
     @RequestMapping(value = "fileUpload",method = RequestMethod.POST)
     public String fileUpload(@RequestParam("file") MultipartFile file) throws IOException, MyException {
 
-        String fileUploadPath = FastDfsUploadTemplate.getFileUploadPath(file, "/tracker.conf", "192.168.102.130:8080");
+        String fileUploadPath = FastDfsUploadTemplate.getFileUploadPath(file, "/tracker.conf", "192.168.102.130");
         return fileUploadPath;
     }
 
@@ -128,6 +133,11 @@ public class ManageController {
         return manageService.getBaseSaleAttrList();
     }
 
+    /**
+     * 添加与修改商品
+     * @param spuInfo
+     * @return
+     */
     ////http://localhost:8082/saveSpuInfo
     @RequestMapping("saveSpuInfo")
     @ResponseBody
@@ -137,4 +147,42 @@ public class ManageController {
 
         return "ok";
     }
+
+    /**
+     * 获取某类商品的所有图片
+     * @param spuId
+     * @return
+     */
+    @RequestMapping("spuImageList")
+    @ResponseBody
+    public List<SpuImage> spuImageList(String spuId){
+        return   manageService.getSpuImageList(spuId);
+    }
+
+    /**
+     * 根据商品id获取该商品的销售属性列表
+     * @param spuId
+     * @return
+     */
+    //http://localhost:8082/spuSaleAttrList?spuId=66
+     @RequestMapping("spuSaleAttrList")
+     @ResponseBody
+     public List<SpuSaleAttr> getspuSaleAttrList(String spuId){
+        List<SpuSaleAttr> spuSaleAttrList = manageService.getSpuSaleAttrList(spuId);
+        return  spuSaleAttrList;
+     }
+
+    /**
+     * 添加或者修改商品库存信息。
+     * @param skuInfo
+     * @return
+     */
+    //http://localhost:8082/saveSkuInfo
+    @RequestMapping("saveSkuInfo")
+    @ResponseBody
+    public String saveSkuInfo(@RequestBody  SkuInfo skuInfo){
+        manageService.saveSkuInfo(skuInfo);
+        return "OK";
+    }
+
 }
